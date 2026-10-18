@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+/* =========================================================================
+   1. TOKENS — literal palette. Tailwind generates `bg-bg`, `text-accent`, …
+      from these names. Both light and dark values are declared here.
+   ========================================================================= */
+@theme {
+  /* ---------- LIGHT (defaults) ---------- */
+  --color-bg:            #f7f7f8;
+  --color-bg-elevated:   #ffffff;
+  --color-bg-sunken:     #f0f0f2;
+  --color-bg-hover:      #f4f4f6;
+  --color-bg-active:     #ececef;
+
+  --color-text:          #1a1a1c;
+  --color-text-h:        #0a0a0b;
+  --color-text-muted:    #6b6b70;
+  --color-text-faint:    #a1a1a8;
+  --color-text-inverse:  #ffffff;
+
+  --color-border:        #e8e8ec;
+  --color-border-strong: #d4d4da;
+
+  --color-accent:        #e11d48;
+  --color-accent-hover:  #be123c;
+  --color-accent-active: #9f1239;
+  --color-accent-soft:   #fff1f3;
+  --color-accent-fg:     #ffffff;
+  --color-accent-bg:     rgba(225, 29, 72, 0.12);
+  --color-accent-border: rgba(225, 29, 72, 0.25);
+
+  --color-success:       #16a34a;
+  --color-warning:       #f59e0b;
+  --color-danger:        #dc2626;
+  --color-info:          #2563eb;
+
+  --color-code-bg:       #f4f4f6;
+  --color-code-border:   #e4e4e9;
+
+  --shadow-card:
+    0 1px 2px rgba(10, 10, 11, 0.04),
+    0 4px 12px -4px rgba(10, 10, 11, 0.06);
+  --shadow-pop:
+    0 8px 28px -8px rgba(10, 10, 11, 0.18),
+    0 2px 6px -2px rgba(10, 10, 11, 0.08);
+  --shadow-accent:
+    0 6px 20px -6px rgba(225, 29, 72, 0.35);
+
+  --font-sans:    "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+  --text-base: 16px;
+  --text-base--line-height: 1.5;
+  --text-base--letter-spacing: -0.006em;
+
+  --radius-sm:   0.5rem;
+  --radius-md:   0.75rem;
+  --radius-lg:   1rem;
+  --radius-xl:   1.5rem;
+  --radius-full: 9999px;
+}
+
+/* =========================================================================
+   2. BASE — page defaults
+   ========================================================================= */
+html {
+  color-scheme: light dark;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  letter-spacing: var(--text-base--letter-spacing);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection { background: var(--color-accent-bg); color: var(--color-accent); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+/* =========================================================================
+   3. DARK MODE (auto) — remap the SAME --color-* vars under `:root`.
+      Only runs if the user hasn't forced light/dark via `data-theme`.
+   ========================================================================= */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --color-bg:            #0e0e10;
+    --color-bg-elevated:   #17171a;
+    --color-bg-sunken:     #0a0a0c;
+    --color-bg-hover:      #1f1f23;
+    --color-bg-active:     #26262b;
+
+    --color-text:          #e8e8ea;
+    --color-text-h:        #fafafa;
+    --color-text-muted:    #9a9aa2;
+    --color-text-faint:    #6b6b73;
+    --color-text-inverse:  #0a0a0b;
+
+    --color-border:        #26262b;
+    --color-border-strong: #38383f;
+
+    --color-accent:        #fb7185;
+    --color-accent-hover:  #fda4af;
+    --color-accent-active: #fecdd3;
+    --color-accent-soft:   rgba(251, 113, 133, 0.12);
+    --color-accent-fg:     #1a0a0e;
+    --color-accent-bg:     rgba(251, 113, 133, 0.12);
+    --color-accent-border: rgba(251, 113, 133, 0.35);
+
+    --color-success:       #4ade80;
+    --color-warning:       #fbbf24;
+    --color-danger:        #f87171;
+    --color-info:          #60a5fa;
+
+    --color-code-bg:       #131316;
+    --color-code-border:   #232329;
+
+    --shadow-card:
+      0 1px 2px rgba(0, 0, 0, 0.5),
+      0 4px 12px -4px rgba(0, 0, 0, 0.55);
+    --shadow-pop:
+      0 8px 28px -8px rgba(0, 0, 0, 0.7),
+      0 2px 6px -2px rgba(0, 0, 0, 0.5);
+    --shadow-accent:
+      0 6px 20px -6px rgba(251, 113, 133, 0.4);
+
+    color-scheme: dark;
+  }
+}
+
+/* =========================================================================
+   4. MANUAL OVERRIDES — `data-theme` on <html> beats the media query.
+   ========================================================================= */
+
+/* Force DARK */
+:root[data-theme="dark"] {
+  --color-bg:            #0e0e10;
+  --color-bg-elevated:   #17171a;
+  --color-bg-sunken:     #0a0a0c;
+  --color-bg-hover:      #1f1f23;
+  --color-bg-active:     #26262b;
+
+  --color-text:          #e8e8ea;
+  --color-text-h:        #fafafa;
+  --color-text-muted:    #9a9aa2;
+  --color-text-faint:    #6b6b73;
+  --color-text-inverse:  #0a0a0b;
+
+  --color-border:        #26262b;
+  --color-border-strong: #38383f;
+
+  --color-accent:        #fb7185;
+  --color-accent-hover:  #fda4af;
+  --color-accent-active: #fecdd3;
+  --color-accent-soft:   rgba(251, 113, 133, 0.12);
+  --color-accent-fg:     #1a0a0e;
+  --color-accent-bg:     rgba(251, 113, 133, 0.12);
+  --color-accent-border: rgba(251, 113, 133, 0.35);
+
+  --color-success:       #4ade80;
+  --color-warning:       #fbbf24;
+  --color-danger:        #f87171;
+  --color-info:          #60a5fa;
+
+  --color-code-bg:       #131316;
+  --color-code-border:   #232329;
+
+  --shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 4px 12px -4px rgba(0, 0, 0, 0.55);
+  --shadow-pop:
+    0 8px 28px -8px rgba(0, 0, 0, 0.7),
+    0 2px 6px -2px rgba(0, 0, 0, 0.5);
+  --shadow-accent:
+    0 6px 20px -6px rgba(251, 113, 133, 0.4);
+
+  color-scheme: dark;
+}
+
+/* Force LIGHT — no-op if light is already the default, but explicit for clarity. */
+:root[data-theme="light"] {
+  --color-bg:            #f7f7f8;
+  --color-bg-elevated:   #ffffff;
+  --color-bg-sunken:     #f0f0f2;
+  --color-bg-hover:      #f4f4f6;
+  --color-bg-active:     #ececef;
+
+  --color-text:          #1a1a1c;
+  --color-text-h:        #0a0a0b;
+  --color-text-muted:    #6b6b70;
+  --color-text-faint:    #a1a1a8;
+  --color-text-inverse:  #ffffff;
+
+  --color-border:        #e8e8ec;
+  --color-border-strong: #d4d4da;
+
+  --color-accent:        #e11d48;
+  --color-accent-hover:  #be123c;
+  --color-accent-active: #9f1239;
+  --color-accent-soft:   #fff1f3;
+  --color-accent-fg:     #ffffff;
+  --color-accent-bg:     rgba(225, 29, 72, 0.12);
+  --color-accent-border: rgba(225, 29, 72, 0.25);
+
+  --color-success:       #16a34a;
+  --color-warning:       #f59e0b;
+  --color-danger:        #dc2626;
+  --color-info:          #2563eb;
+
+  --color-code-bg:       #f4f4f6;
+  --color-code-border:   #e4e4e9;
+
+  --shadow-card:
+    0 1px 2px rgba(10, 10, 11, 0.04),
+    0 4px 12px -4px rgba(10, 10, 11, 0.06);
+  --shadow-pop:
+    0 8px 28px -8px rgba(10, 10, 11, 0.18),
+    0 2px 6px -2px rgba(10, 10, 11, 0.08);
+  --shadow-accent:
+    0 6px 20px -6px rgba(225, 29, 72, 0.35);
+
+  color-scheme: light;
+}
+
+/* =========================================================================
+   5. OPTIONAL — like-button micro-interaction
+   ========================================================================= */
+@keyframes like-pop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.35); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+.like-animate { animation: like-pop 0.35s cubic-bezier(.2,.8,.2,1); }
+
+
+/* =========================================================================
+   6. SCROLLBARS — theme-aware, works in light / dark / auto.
+   ========================================================================= */
+
+/* Firefox (standard properties, no vendor prefix needed) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
+}
+
+/* WebKit / Blink (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-strong);
+  border-radius: 9999px;
+  /* Border trick: insets the thumb inside the track so it looks thinner
+     than the 10px gutter, without shrinking the hit area. */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-faint);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-text-muted);
+  background-clip: padding-box;
+}
+
+/* Corner between horizontal + vertical scrollbars */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Hide the ugly arrows on older WebKit */
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}

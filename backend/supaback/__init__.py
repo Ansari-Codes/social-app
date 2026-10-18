@@ -1,0 +1,1 @@
+"""Supabase PostgreSQL-backed API for Silence."""
