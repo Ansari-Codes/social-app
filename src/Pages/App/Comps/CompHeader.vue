@@ -125,7 +125,7 @@ function isTabActive(tab: NavTab): boolean {
             <div class="flex items-center gap-2.5 shrink-0 md:w-64">
                 <RouterLink :to="{ name: 'app' }" class="flex items-center gap-2.5 no-underline text-inherit group">
                     <span class="grid h-9 w-9 place-items-center rounded-xl bg-accent text-accent-fg font-black text-sm shadow-xs transition-transform group-hover:scale-105" aria-hidden="true">
-                        SB
+                        🔇
                     </span>
                     <span class="hidden sm:inline font-black tracking-tight text-base text-text-h">
                         {{ APP_NAME }}
