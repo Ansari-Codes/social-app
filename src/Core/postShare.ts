@@ -49,7 +49,7 @@ export async function sharePost(
     const url = new URL(BASE_URL, window.location.origin);
     const params = new URLSearchParams({ post_id: String(postId) });
     if (profileId !== undefined) params.set('profile_id', String(profileId));
-    url.hash = `/app?${params}`;
+    url.hash = `/post/${postId}?${params}`;
 
     if (navigator.share) {
         await navigator.share({ title: 'Post on SilenceBook', text: content, url: url.toString() });

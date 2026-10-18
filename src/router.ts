@@ -4,7 +4,6 @@ import { useMeStore } from "@/Stores/meStore";
 import { requestAuthPrompt } from "@/Core/authPrompt";
 
 import auth_routes from "./Pages/Auth/routes";
-import home_routes from "@/Pages/Home/routes";
 import app_routes from "@/Pages/App/routes";
 
 const history = import.meta.env.PROD
@@ -22,14 +21,8 @@ const router = createRouter({
         },
         {
             path: '/',
-            component: importPage("Home"),
-            children: home_routes,
-        },
-        {
-            path: '/app',
             component: importPage("App"),
             children: app_routes,
-            meta: { requiresAuth: true },
         }
     ]
 });
@@ -44,7 +37,7 @@ router.beforeEach(async (to) => {
 
     if (requiresAuth && !me.isAuthenticated) {
         requestAuthPrompt();
-        return { name: 'home' };
+        return { name: 'app' };
     }
 
     if (requiresGuest && me.isAuthenticated) {

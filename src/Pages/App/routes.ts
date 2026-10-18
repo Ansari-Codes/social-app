@@ -6,7 +6,6 @@ const app_routes: RouteRecordRaw[] = [
         name: 'app',
         path: '',
         component: importPage('App/Feed'),
-        meta: { requiresAuth: true },
     },
     {
         name: 'feed',
@@ -38,15 +37,26 @@ const app_routes: RouteRecordRaw[] = [
         meta: { requiresAuth: true },
     },
     {
+        name: 'terms',
+        path: 'terms',
+        component: importPage('Home/Terms'),
+    },
+    {
+        name: 'about',
+        path: 'about',
+        component: importPage('Home/About'),
+    },
+    {
         name: 'settings',
         path: 'settings',
         component: importPage('App/Settings'),
         meta: { requiresAuth: true },
     },
     {
-        name: 'app-post-detail',
+        name: 'post-detail',
         path: 'post/:id',
-        redirect: to => ({ name: 'post-detail', params: { id: to.params.id } }),
+        component: importPage('App/Post'),
+        props: true,
     },
     {
         name: 'profile',
@@ -54,6 +64,10 @@ const app_routes: RouteRecordRaw[] = [
         component: importPage('App/Profile'),
         props: true,
         meta: { requiresAuth: true },
+    },
+    {
+        path: 'tos',
+        redirect: { name: 'terms' },
     },
 ];
 

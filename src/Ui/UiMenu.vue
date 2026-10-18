@@ -176,7 +176,7 @@ defineExpose({ open: () => (isOpen.value = true), close, toggle });
                     ref="panel"
                     role="menu"
                     :style="panelStyle"
-                    class="ui-menu-panel fixed z-50 min-w-[10rem] rounded-lg py-1 text-sm text-text"
+                    class="ui-menu-panel fixed z-50 min-w-40 rounded-lg py-1 text-sm text-text"
                 >
                     <slot :close="close" />
                 </div>

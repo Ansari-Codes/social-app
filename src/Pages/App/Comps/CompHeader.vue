@@ -11,6 +11,7 @@
 import { computed, onMounted, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import UiButton from '@/Ui/UiButton.vue';
+import UiMenu from '@/Ui/UiMenu.vue';
 import { useMeStore } from '@/Stores/meStore';
 import { useAppDataStore } from '@/Stores/appDataStore';
 import { APP_NAME } from '@/Core/config';
@@ -90,6 +91,13 @@ const navTabs = computed<NavTab[]>(() => [
     },
 ]);
 
+const menuItems = [
+    { label: 'Settings', icon: '⚙️', name: 'settings' },
+    { label: 'Terms', icon: '📄', name: 'terms' },
+    { label: 'About', icon: 'ⓘ', name: 'about' },
+    { label: 'Dashboard', icon: '▦', name: 'dashboard' },
+] as const;
+
 /**
  * Unique key per tab. Falls back to the string path when `to` is a string,
  * and to `name` when it's an object.
@@ -148,12 +156,24 @@ function isTabActive(tab: NavTab): boolean {
 
             <!-- ── RIGHT: settings ─────────────────────────────── -->
             <div class="flex items-center justify-end gap-2 shrink-0 md:w-64">
-                <RouterLink :to="{ name: 'settings' }" custom v-slot="{ navigate }">
-                    <UiButton variant="ghost" size="sm" class="gap-1.5 font-medium" @click="navigate" aria-label="Settings">
-                        <span aria-hidden="true">⚙️</span>
-                        <span class="hidden sm:inline">Settings</span>
-                    </UiButton>
-                </RouterLink>
+                <UiMenu align="end">
+                    <template #trigger="{ open }">
+                        <UiButton variant="ghost" size="sm" class="gap-1.5 font-medium" aria-label="Settings menu"
+                            :aria-expanded="open">
+                            <span aria-hidden="true">⚙️</span>
+                            <span class="hidden sm:inline">Settings</span>
+                        </UiButton>
+                    </template>
+                    <template #default="{ close }">
+                        <RouterLink v-for="item in menuItems" :key="item.name" :to="{ name: item.name }"
+                            role="menuitem"
+                            class="flex items-center gap-2 px-3 py-2 text-sm text-text no-underline hover:bg-bg-hover"
+                            @click="close">
+                            <span aria-hidden="true">{{ item.icon }}</span>
+                            <span>{{ item.label }}</span>
+                        </RouterLink>
+                    </template>
+                </UiMenu>
             </div>
         </div>
     </header>
