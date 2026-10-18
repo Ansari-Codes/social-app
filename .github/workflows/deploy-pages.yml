@@ -23,7 +23,7 @@ jobs:
     env:
       F_APP_NAME: ${{ vars.F_APP_NAME }}
       F_BACKEND_URL: ${{ vars.F_BACKEND_URL }}
-      F_BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name) }}
+      F_BASE_PATH: ${{ vars.F_BASE_PATH }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,6 +32,10 @@ jobs:
           cache: npm
       - name: Verify API URL
         run: |
+          if [ -z "$F_BASE_PATH" ]; then
+            echo "::error::Set the F_BASE_PATH repository variable to / for a root/custom domain site or /repository-name/ for a project site."
+            exit 1
+          fi
           case "$F_BACKEND_URL" in
             https://*) ;;
             *) echo "::error::Set the F_BACKEND_URL repository variable to the HTTPS Render API origin."; exit 1 ;;

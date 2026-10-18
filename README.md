@@ -124,7 +124,8 @@ npm run preview
 
 1. In the GitHub repository, open **Settings → Pages** and select **GitHub Actions** as the deployment source.
 2. Open **Settings → Secrets and variables → Actions → Variables** and add `F_BACKEND_URL` with the Render API origin, for example `https://dotmuted-api.onrender.com` (no trailing slash).
-3. Push to `main` or run the **Deploy frontend to GitHub Pages** workflow manually. The workflow calculates the correct base path for project sites and `username.github.io` user sites.
+3. Add `F_BASE_PATH`: use `/repository-name/` for a project site, or `/` for a `username.github.io` site or custom domain.
+4. Push to `main` or run the **Deploy frontend to GitHub Pages** workflow manually. Vite receives `F_BASE_PATH` during the Actions build and exposes the normalized result as `import.meta.env.BASE_URL` (also exported as `BASE_URL` from `@/Core/config`).
 
 The production router uses hash URLs, so refreshing a nested route works on static hosting. The generated `404.html` also serves the app shell for older/direct history-style links. If your default branch is not `main`, update the workflow trigger.
 

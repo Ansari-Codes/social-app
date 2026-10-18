@@ -1,3 +1,5 @@
+import { BASE_URL } from '@/Core/config';
+
 export function sharedPostIdFromLocation(): number | null {
     const hashQuery = window.location.hash.split('?')[1] ?? '';
     const value = new URLSearchParams(hashQuery).get('post_id')
@@ -44,7 +46,7 @@ export async function sharePost(
     content: string,
     profileId?: number,
 ): Promise<'shared' | 'copied'> {
-    const url = new URL(import.meta.env.BASE_URL, window.location.origin);
+    const url = new URL(BASE_URL, window.location.origin);
     const params = new URLSearchParams({ post_id: String(postId) });
     if (profileId !== undefined) params.set('profile_id', String(profileId));
     url.hash = `/app?${params}`;
